@@ -1,0 +1,22 @@
+#
+# Robin RPA 제 7 강
+#
+# Close existing Pop Up windows 
+#  
+# Copyright 2020. Joon Soo Jeong. All rights Reserved.
+#
+set closing to true
+Loop while closing = true
+    WebAutomation.AttachToChromeByTitle TabTitle: "서울디지털재단" BrowserInstance=> BrowserInfo
+        on error LaunchChromeError
+            set closing to false
+        end
+    wait 1
+    if closing = false then
+        exit Loop
+    else 
+        WebAutomation.CloseWebBrowser BrowserInstance: BrowserInfo
+    end
+    wait 1
+end
+wait 1

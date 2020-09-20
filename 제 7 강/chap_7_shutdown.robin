@@ -1,0 +1,9 @@
+#
+# Robin RPA 제 7 강
+#
+# System Command를 사용하여 컴퓨터 shutdown 실행
+#  
+# Copyright 2020. Joon Soo Jeong. All rights Reserved.
+#
+
+System.ShutdownComputer ShutdownOption:System.ShutdownOption.Shutdown Force:False

@@ -1,0 +1,27 @@
+#
+# Robin RPA 제 7 강
+#
+# System Command를 사용하여 계산기 프로그램 실행
+#  
+# Copyright 2020. Joon Soo Jeong. All rights Reserved.
+#
+
+System.RunApplication               ApplicationPath:  'C:\Windows\System32\calc.exe' \
+                                    CommandLineArguments:'' \
+                                    WorkingDirectory:'' \
+                                    WindowStyle:System.ProcessWindowStyle.Normal \
+                                    ProcessId=> ProcessId
+                                                                        
+
+wait 1
+
+if (System.ProcessRunning ProcessName: 'calculator') then
+
+    Console.Write Message: 'Calculator Running OK: 1'
+	
+else
+	Console.Write Message: 'Calculator Running Fail: 0'
+end
+
+
+Console.Write Message: ProcessId

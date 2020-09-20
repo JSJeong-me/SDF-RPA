@@ -1,0 +1,19 @@
+#
+# Robin RPA 제 7 강
+#
+# System Command를 사용하여 dir을 실행
+#  
+# Copyright 2020. Joon Soo Jeong. All rights Reserved.
+#
+
+Cmd.Open Directory:'C:\Users\heine\Desktop' Session=> S1
+
+Cmd.Write Session: S1  Command: 'dir'  SendEnter:True
+
+Cmd.Read Session: S1 CmdOutput=> CmdOutput
+
+Console.Write Message: CmdOutput
+
+wait 1
+
+Cmd.Close Session: S1
