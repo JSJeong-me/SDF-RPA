@@ -1,0 +1,27 @@
+#
+# Robin RPA 제 4 강
+#
+# Web browser launch & close
+#  
+# Copyright 2020. Joon Soo Jeong. All rights Reserved.
+#
+
+Display.InputDialog Title:'Enter the URL.' \
+                    Message:'Please enter the URL of the webpage that you want to launch.' \
+                    DefaultValue:'' \
+                    InputType:Display.InputType.SingleLine \
+                    IsTopMost:False \
+                    UserInput=> WebPageToLaunch \
+                    ButtonPressed=> ButtonPressed
+
+if (ButtonPressed='OK') then
+	
+	
+    WebAutomation.LaunchChrome Url: WebPageToLaunch WindowState:WebAutomation.BrowserWindowState.Maximized \
+    ClearCache:False ClearCookies:False BrowserInstance=> Browser
+    
+    wait 5
+    
+    WebAutomation.CloseWebBrowser BrowserInstance: Browser
+
+end
