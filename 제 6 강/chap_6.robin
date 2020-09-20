@@ -1,0 +1,39 @@
+#
+# Robin RPA 제 6 강
+#
+# Web Crawling - www.gmarket.co.kr
+#  
+# Copyright 2020. Joon Soo Jeong. All rights Reserved.
+#
+
+import  'g6.appmask'
+
+WebAutomation.LaunchChrome Url: 'https://www.gmarket.co.kr/' WindowState:WebAutomation.BrowserWindowState.Maximized \
+        ClearCache:False ClearCookies:False BrowserInstance=> Browser
+        
+wait 2
+
+WebAutomation.FormFilling.PopulateTextField BrowserInstance: Browser  Control: g6.New_Application.Web_Page_https_www_gmarket_co_kr.input_text_form_input \
+  Text: 'ncl77' \
+ EmulateTyping:True UnfocusAfterPopulate:False
+ 
+wait 2
+ 
+WebAutomation.FormFilling.PressButton BrowserInstance: Browser  Control: g6.New_Application.Web_Page_https_www_gmarket_co_kr.img_image
+
+wait 2
+
+WebAutomation.DataExtraction.GetDetailsOfElement BrowserInstance: Browser \
+    Control: g6.New_Application.Web_Page_https_browse_gmarket_co_kr_search_keyword_ncl77.span_text_item \
+    AttributeName:'innerText' AttributeValue=> AttributeValue1
+    
+WebAutomation.DataExtraction.GetDetailsOfElement BrowserInstance: Browser \
+    Control: g6.New_Application.Web_Page_https_browse_gmarket_co_kr_search_keyword_ncl77.strong_text_text_value \
+    AttributeName:'innerText' AttributeValue=> AttributeValue2
+
+wait 1
+
+Console.Write Message: AttributeValue1
+Console.Write Message: AttributeValue2
+
+WebAutomation.CloseWebBrowser BrowserInstance: Browser
