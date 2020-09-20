@@ -1,0 +1,24 @@
+#
+# Robin RPA 제 8 강
+#
+# File Name 생성
+#  
+# Copyright 2020. Joon Soo Jeong. All rights Reserved.
+#
+
+
+
+Folder.GetSpecialFolder SpecialFolder:Folder.SpecialFolder.DesktopDirectory \
+                        SpecialFolderPath=> DesktopDirectoryPath
+                        
+
+File.RenameAddDateOrTime Files:DesktopDirectoryPath+'\test1.txt' \
+    DateTimeToAdd:File.DateTimeToAdd.Current \
+    DateTimePosition:File.AddTextPosition.AfterName \
+    DateTimeSeparator:File.Separator.Underscore \
+    DateTimeFormat:'yyyyMMdd' \
+    IfFileExists:File.IfExists.DoNothing RenamedFiles=> RenamedFiles
+    
+    
+Console.Write Message: RenamedFiles
+    

@@ -1,0 +1,34 @@
+#
+# Robin RPA 제 8 강
+#
+# File Name 생섬 및 이름 변환
+#  
+# Copyright 2020. Joon Soo Jeong. All rights Reserved.
+#
+
+Folder.GetSpecialFolder SpecialFolder:Folder.SpecialFolder.DesktopDirectory \
+                        SpecialFolderPath=> DesktopDirectoryPath
+                        
+                        
+Folder.GetFiles Folder:DesktopDirectoryPath+'\test' \
+    FileFilter:'*' \
+    IncludeSubfolders:False \
+    FailOnAccessDenied:True \
+    SortBy1:Folder.SortBy.NoSort \
+    SortDescending1:False \
+    SortBy2:Folder.SortBy.NoSort \
+    SortDescending2:False \
+    SortBy3:Folder.SortBy.NoSort \
+    SortDescending3:False Files=> Files
+
+
+File.RenameAddDateOrTime Files:Files \
+    DateTimeToAdd:File.DateTimeToAdd.Current \
+    DateTimePosition:File.AddTextPosition.AfterName \
+    DateTimeSeparator:File.Separator.Underscore \
+    DateTimeFormat:'yyyyMMdd' \
+    IfFileExists:File.IfExists.DoNothing RenamedFiles=> RenamedFiles
+    
+    
+Console.Write Message: RenamedFiles
+    
