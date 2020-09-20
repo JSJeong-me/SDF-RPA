@@ -1,0 +1,59 @@
+#
+# Robin RPA 제 11 강
+#
+# 엑셀 Part 3: 단어 찾기
+#  
+# Copyright 2020. Joon Soo Jeong. All rights Reserved.
+#
+
+label PromptForText
+
+System.ShowDesktop DesktopOperation:System.DesktopOperation.Show
+
+Display.InputDialog Title:'Please enter the text to search for.' \
+                    Message:'단어를 입력하세요.' \
+                    DefaultValue:' 찾는 단어를 입력하세요 ' \
+                    InputType:Display.InputType.SingleLine \
+                    IsTopMost:False \
+                    UserInput=> TextToLocate \
+                    ButtonPressed=> ButtonPressed
+                    
+Console.Write       Message: TextToLocate
+
+
+if TextToLocate="" then
+    goto PromptForText
+end
+
+
+#set myText to "I am some random text."
+
+
+Excel.LaunchAndOpen                     Path:  "C:\Users\heine\Desktop\excel\text1.xlsx" \
+                                        Visible:True \
+                                        Password:'' \
+                                        ReadOnly:False \
+                                        LoadAddInsAndMacros:False \
+                                        Instance=> ExcelInstance
+
+wait 1
+
+Excel.ReadCell                          Instance: ExcelInstance \
+                                        StartColumn:  "A" \
+                                        StartRow:  1 \
+                                        ReadAsText:True \
+                                        Value=> Value
+
+Console.Write Message: Value
+
+
+if Value+"" = TextToLocate then
+    Console.Write Message: "They are equal."
+else if Value+"" != TextToLocate then
+    Console.Write Message: "They are not equal."
+end
+
+
+Excel.Close Instance: ExcelInstance
+
+System.ShowDesktop DesktopOperation:System.DesktopOperation.Show

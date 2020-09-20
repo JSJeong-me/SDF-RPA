@@ -1,0 +1,29 @@
+#
+# Robin RPA 제 11 강
+#
+# 엑셀 Part 3: 메세지 입력
+#  
+# Copyright 2020. Joon Soo Jeong. All rights Reserved.
+#
+
+label PromptForText
+
+Display.InputDialog Title:'Please enter the text to search for.' \
+                    Message:'단어를 입력하세요.' \
+                    DefaultValue:' 찾는 단어를 입력하세요 ' \
+                    InputType:Display.InputType.SingleLine \
+                    IsTopMost:False \
+                    UserInput=> TextToLocate \
+                    ButtonPressed=> ButtonPressed
+                    
+Console.Write       Message: TextToLocate
+
+
+if TextToLocate="" then
+    goto PromptForText
+end
+
+
+
+Display.InputDialog Title:'' Message:'' DefaultValue:'' \
+    InputType:Display.InputType.SingleLine IsTopMost:False UserInput=> UserInput ButtonPressed=> ButtonPressed

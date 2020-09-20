@@ -1,0 +1,62 @@
+#
+# Robin RPA 제 11 강
+#
+# 엑셀 Part 3: Loop를 사용하여 단어 찾기
+#  
+# Copyright 2020. Joon Soo Jeong. All rights Reserved.
+#
+
+label PromptForText
+
+System.ShowDesktop DesktopOperation:System.DesktopOperation.Show
+
+Display.InputDialog Title:'Please enter the text to search for.' \
+                    Message:'단어를 입력하세요.' \
+                    DefaultValue:' 찾는 단어를 입력하세요 ' \
+                    InputType:Display.InputType.SingleLine \
+                    IsTopMost:False \
+                    UserInput=> TextToLocate \
+                    ButtonPressed=> ButtonPressed
+                    
+Console.Write       Message: TextToLocate
+
+wait 1
+
+
+Excel.LaunchAndOpen                     Path:  "C:\Users\heine\Desktop\excel\text1.xlsx" \
+                                        Visible:True \
+                                        Password:'' \
+                                        ReadOnly:False \
+                                        LoadAddInsAndMacros:False \
+                                        Instance=> ExcelInstance
+
+wait 1
+
+Excel.GetFirstFreeColumnRow Instance: ExcelInstance FirstFreeColumn=> FirstFreeColumn FirstFreeRow=> FirstFreeRow
+
+Excel.ReadCells Instance: ExcelInstance StartColumn: "A" StartRow: 1 EndColumn: FirstFreeColumn EndRow: FirstFreeRow \
+                            ReadAsText:False FirstLineIsHeader:False Value=> Value
+                                   
+Console.Write Message: "Row Lines:     " + Value.rows.count
+Console.Write Message: "Column Counts: " + Value.columns.count
+Console.Write Message: ""
+
+Console.Write Message: Value
+
+wait 1
+
+loop i from 0 to FirstFreeRow-1 step 1
+    loop j from 0 to FirstFreeColumn-1 step 1
+    	if Value[i][j]+"" = TextToLocate then
+            Console.Write Message: "They are equal at ["+i+"]["+j+"]"
+        else if Value[i][j]+"" != TextToLocate then
+#            Console.Write Message: "They are not equal."
+        end
+    end	
+end
+
+
+Excel.Close Instance: ExcelInstance
+
+System.ShowDesktop DesktopOperation:System.DesktopOperation.Hide
+
