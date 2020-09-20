@@ -1,0 +1,40 @@
+#
+# Robin RPA 제 9 강
+#
+# 엑셀 Part 1:  데이터 영역 확인 및 Cell Read
+#  
+# Copyright 2020. Joon Soo Jeong. All rights Reserved.
+#
+
+Excel.LaunchAndOpen Path: 'C:\Users\heine\Desktop\text1.xlsx' \
+    Visible:True Password:'' \
+    ReadOnly:False LoadAddInsAndMacros:False \
+    Instance=> ExcelInstance
+    
+wait 3
+
+
+Excel.GetFirstFreeColumnRow Instance:ExcelInstance  \
+FirstFreeColumn=> FirstFreeColumn FirstFreeRow=> FirstFreeRow
+
+Console.Write Message: 'Col:'+FirstFreeColumn
+
+Console.Write Message: 'Row:'+FirstFreeRow
+
+excel.ReadCells Instance: ExcelInstance\
+ StartColumn: 'A' StartRow: 1 \
+ EndColumn: FirstFreeColumn\
+ EndRow: FirstFreeRow\
+ ReadAsText:False FirstLineIsHeader:False Value=> Value
+
+Excel.ReadCells Instance: ExcelInstance \
+ StartColumn: 'A'  StartRow: 2 \
+ EndColumn: FirstFreeColumn-1 \
+ EndRow: FirstFreeRow-1 \
+ ReadAsText:False FirstLineIsHeader:False Value=> Value1
+ 
+Console.Write Message: Value
+
+Console.Write Message: Value1
+
+Excel.Close Instance: ExcelInstance

@@ -1,0 +1,22 @@
+#
+# Robin RPA 제 9 강
+#
+# 엑셀 Part 1: File 저장
+#  
+# Copyright 2020. Joon Soo Jeong. All rights Reserved.
+#
+
+Excel.LaunchAndOpen                     Path:  "C:\Users\heine\Desktop\text1.xlsx"\
+                                        Visible:True \
+                                        Password:'' \
+                                        ReadOnly:False \
+                                        LoadAddInsAndMacros:False \
+                                        Instance=> ExcelInstance
+
+wait 3
+
+
+Excel.CloseAndSaveAs Instance: ExcelInstance  DocumentFormat: \
+    Excel.ExcelFormat.FromExtension \ 
+    DocumentPath: "C:\Users\heine\Desktop\text2.xlsx"
+    
