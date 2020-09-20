@@ -1,0 +1,20 @@
+#
+# Robin RPA 제 2 강
+#
+# Robin Editor 사용법
+#  
+# Copyright 2020. Joon Soo Jeong. All rights Reserved.
+#
+
+set var to 'Hello RPA World!'
+Console.Write Message: var
+
+DateTime.Current DateTimeFormat:DateTime.DateTimeFormat.DateAndTime Offset:'0' CurrentDateTime=> CurrentDateTime
+
+Console.Write Message: CurrentDateTime
+
+Set NumVar to 5
+
+Console.Write Message: NumVar
+
+Display.ShowMessage Title:'This is the Current Time and Date' Message:CurrentDateTime ButtonPressed=> ButtonPressed
