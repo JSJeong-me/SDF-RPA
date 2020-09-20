@@ -1,0 +1,26 @@
+#
+# Robin RPA 제 5 강
+#
+# UIspy (CSS editor) 사용법
+#  
+# Copyright 2020. Joon Soo Jeong. All rights Reserved.
+#
+
+import  'g.appmask'
+
+WebAutomation.LaunchChrome Url: 'https://www.gmarket.co.kr/' WindowState:WebAutomation.BrowserWindowState.Maximized \
+        ClearCache:False ClearCookies:False BrowserInstance=> Browser
+        
+wait 2
+
+WebAutomation.FormFilling.PopulateTextField BrowserInstance: Browser  Control: g.New_Application.Web_Page_https_www_gmarket_co_kr.input_text_form_input \
+  Text: 'ncl77' \
+ EmulateTyping:True UnfocusAfterPopulate:False
+ 
+wait 2
+ 
+WebAutomation.FormFilling.PressButton BrowserInstance: Browser  Control: g.New_Application.Web_Page_https_www_gmarket_co_kr.img_image
+
+wait 2
+
+WebAutomation.CloseWebBrowser BrowserInstance: Browser
