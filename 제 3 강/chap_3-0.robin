@@ -1,0 +1,19 @@
+#
+# Robin RPA 제 3 강
+#
+# Variables 사용법
+#  
+# Copyright 2020. Joon Soo Jeong. All rights Reserved.
+#
+
+DateTime.Current DateTimeFormat:DateTime.DateTimeFormat.DateAndTime Offset:'0' CurrentDateTime=> CurrentDateTime
+
+Console.Write Message: '현재시간: '+ CurrentDateTime
+
+
+call today
+
+function today
+	DateTime.Current DateTimeFormat:DateTime.DateTimeFormat.DateAndTime Offset:'0' CurrentDateTime=> CurrentDateTime
+    Console.Write Message: '현재시간: '+ CurrentDateTime
+end

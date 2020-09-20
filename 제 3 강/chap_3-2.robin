@@ -1,0 +1,12 @@
+
+
+set var1 to 10
+set var2 to 5
+
+function addition num1, num2
+    set g:total to num1 + num2
+end
+
+call addition num1: var1 num2: var2
+
+Console.Write Message: "합계: "+ total

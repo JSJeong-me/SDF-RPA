@@ -1,0 +1,20 @@
+#
+# Robin RPA 제 3 강
+#
+# Variables 사용법
+#  
+# Copyright 2020. Joon Soo Jeong. All rights Reserved.
+#
+
+set var1 to 10
+set var2 to 5
+
+function addition num1, num2, output total, output difference
+    set total to num1 + num2
+	set difference to num1 - num2
+end
+
+call addition num1: var1 num2: var2 total=> output1 difference=> output2
+
+Console.Write Message: "합계: "+ output1
+Console.Write Message: "차이: "+ output2
