@@ -1,0 +1,51 @@
+#
+# Robin RPA 제 10 강
+#
+# 엑셀 Part 2: 거래명세표 작성
+#  
+# Copyright 2020. Joon Soo Jeong. All rights Reserved.
+#
+
+System.ShowDesktop DesktopOperation:System.DesktopOperation.Show
+
+Excel.LaunchAndOpen                     Path:  "C:\Users\heine\Desktop\text1.xlsx" \
+                                        Visible:True \
+                                        Password:'' \
+                                        ReadOnly:False \
+                                        LoadAddInsAndMacros:False \
+                                        Instance=> ExcelInstance2
+
+wait 1
+
+Excel.LaunchAndOpen                     Path:  "C:\Users\heine\Desktop\sheet1.xlsx" \
+                                        Visible:True \
+                                        Password:'' \
+                                        ReadOnly:False \
+                                        LoadAddInsAndMacros:False \
+                                        Instance=> ExcelInstance1
+                                        
+wait 1
+
+Excel.GetFirstFreeColumnRow Instance: ExcelInstance1 FirstFreeColumn=> FirstFreeColumn FirstFreeRow=> FirstFreeRow
+
+Excel.ReadCells Instance: ExcelInstance2 StartColumn: "A" StartRow: 2 \
+                            EndColumn: FirstFreeColumn-1 EndRow: FirstFreeRow-1 \
+                            ReadAsText:False FirstLineIsHeader:False Value=> Value
+
+
+Console.Write Message: FirstFreeColumn
+Console.Write Message: FirstFreeRow
+
+
+Excel.WriteCell Instance: ExcelInstance1 Value: Value[0][0] Column: "B" Row: 9  # Column: 2
+Excel.WriteCell Instance: ExcelInstance1 Value: Value[0][1] Column: "K" Row: 9  # Column: 2
+Excel.WriteCell Instance: ExcelInstance1 Value: Value[0][2] Column: "L" Row: 9  # Column: 2
+Excel.WriteCell Instance: ExcelInstance1 Value: Value[0][3] Column: "M" Row: 9  # Column: 2
+
+wait 2
+
+
+Excel.CloseAndSave Instance: ExcelInstance1
+Excel.Close Instance: ExcelInstance2
+
+System.ShowDesktop DesktopOperation:System.DesktopOperation.Hide
