@@ -1,0 +1,18 @@
+#
+# Robin RPA 제 19 강
+#
+# UIspay 를 이용한 CSS Editor 편집
+#  
+# Copyright 2020. Joon Soo Jeong. All rights Reserved.
+#
+
+# Integration
+# Brauwer launch error
+
+import 'pubApp.appmask'
+
+WebAutomation.LaunchChrome Url: 'https://pubchem.ncbi.nlm.nih.gov/'\
+  WindowState:WebAutomation.BrowserWindowState.Maximized ClearCache:False ClearCookies:False BrowserInstance=> Browser
+  
+WebAutomation.FormFilling.PopulateTextField BrowserInstance: Browser\
+ Control: pubApp.New_Application.Web_Page_https_pubchem_ncbi_nlm_nih_gov.input_text_search Text: '50-00-0'  EmulateTyping:False UnfocusAfterPopulate:False  
