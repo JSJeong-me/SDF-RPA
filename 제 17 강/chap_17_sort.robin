@@ -1,0 +1,190 @@
+#
+# Robin RPA 제 17 강
+#
+# SORT 함수를 이용하여 최저가겨과 최고가격을 찾습니다.
+#  
+# Copyright 2020. Joon Soo Jeong. All rights Reserved.
+#
+
+# Integration
+# Brauwer launch error
+
+import "stApp1.appmask"
+import "auctionApp.appmask"
+import "gmarketApp2.appmask"
+
+
+set prices to [0,0,0]
+set value to 0
+
+function st_price output value
+
+###########################################
+WebAutomation.LaunchChrome          Url:  "http://search.11st.co.kr/Search.tmall?kwd=NCL-77" \
+                                    WindowState:WebAutomation.BrowserWindowState.Maximized \
+                                    ClearCache:true \
+                                    ClearCookies:False \
+                                    BrowserInstance=> Browser
+
+#wait 1
+
+
+wait 3
+
+WebAutomation.DataExtraction.GetDetailsOfElement   BrowserInstance:  Browser \
+                Control: stApp1.st.Web_Page_http_search_11st_co_kr_Search_tmall_kwd_ncl_77.span_value \
+                                    AttributeName:  'innerText' \
+                                    AttributeValue=> AttributeValue1
+
+WebAutomation.DataExtraction.GetDetailsOfElement   BrowserInstance:  Browser \
+                Control: stApp1.st.Web_Page_http_search_11st_co_kr_Search_tmall_kwd_ncl_77.dt \
+                                    AttributeName:  'innerText' \
+                                    AttributeValue=> AttributeValue2
+
+Console.Write                       Message: AttributeValue1
+Console.Write                       Message: AttributeValue2
+
+wait 1
+
+WebAutomation.CloseWebBrowser       BrowserInstance: Browser
+
+###########################################
+
+    Text.ToNumber Text: AttributeValue1  Number=> TextAsNumber
+    set value to TextAsNumber
+    
+end
+
+
+function gmarket_price output value
+
+##############################################
+
+WebAutomation.LaunchChrome          Url:  "https://www.gmarket.co.kr" \
+                                    WindowState:WebAutomation.BrowserWindowState.Maximized \
+                                    ClearCache:true \
+                                    ClearCookies:False \
+                                    BrowserInstance=> Browser
+
+wait 3
+
+
+
+
+WebAutomation.FormFilling.PopulateTextField     BrowserInstance:  Browser \
+                                    Control: gmarketApp2.gmarket.Web_Page_https_www_gmarket_co_kr.input_text_form_input \
+                                    Text:  "NCL-77"\
+                                    EmulateTyping:True \
+                                    UnfocusAfterPopulate:False
+
+wait 3
+
+
+WebAutomation.FormFilling.PressButton           BrowserInstance: Browser \
+                                    Control: gmarketApp2.gmarket.Web_Page_https_www_gmarket_co_kr.img_image
+wait 3
+
+WebAutomation.DataExtraction.GetDetailsOfElement   BrowserInstance:  Browser Control: gmarketApp2.gmarket.Web_Page_https_browse_gmarket_co_kr_search_keyword_ncl77.strong_text_text_value \
+                                    AttributeName:  'innerText' \
+                                    AttributeValue=> AttributeValue1
+
+WebAutomation.DataExtraction.GetDetailsOfElement   BrowserInstance:  Browser Control: gmarketApp2.gmarket.Web_Page_https_browse_gmarket_co_kr_search_keyword_ncl77.span_text_seller \
+                                    AttributeName:  'innerText' \
+                                    AttributeValue=> AttributeValue2
+
+Console.Write                       Message: AttributeValue1
+Console.Write                       Message: AttributeValue2
+
+wait 3
+
+WebAutomation.CloseWebBrowser       BrowserInstance: Browser
+
+##############################################
+    Text.ToNumber Text: AttributeValue1  Number=> TextAsNumber
+    set value to TextAsNumber
+    
+end
+
+function auction_price output value
+
+###########################################
+
+WebAutomation.LaunchChrome          Url:  "http://auction.co.kr" \
+                                    WindowState:WebAutomation.BrowserWindowState.Maximized \
+                                    ClearCache:true \
+                                    ClearCookies:False \
+                                    BrowserInstance=> Browser
+
+wait 1
+
+WebAutomation.FormFilling.PopulateTextField     BrowserInstance:  Browser \
+                                    Control: auctionApp.auction.Web_Page_http_www_auction_co_kr.input_text_txtKeyword \
+                                    Text:  "NCL-77" \
+                                    EmulateTyping:True \
+                                    UnfocusAfterPopulate:False
+
+wait 1
+
+
+WebAutomation.FormFilling.PressButton           BrowserInstance: Browser \
+                                    Control: auctionApp.auction.Web_Page_http_www_auction_co_kr.input_submit_search_btn_ok
+wait 1
+
+
+
+WebAutomation.DataExtraction.GetDetailsOfElement   BrowserInstance:  Browser \
+ Control: auctionApp.auction.Web_Page_http_browse_auction_co_kr_search_keyword_ncl77_itemno_nickname_frm_hometab_dom_auction_isSuggestion_No_retry_Fwk_ncl77_acode_SRP_SU.strong_text_price_seller \
+                                    AttributeName:  'innerText' \
+                                    AttributeValue=> AttributeValue1
+                                    
+
+WebAutomation.DataExtraction.GetDetailsOfElement   BrowserInstance:  Browser \
+ Control: auctionApp.auction.Web_Page_http_browse_auction_co_kr_search_keyword_ncl77_itemno_nickname_frm_hometab_dom_auction_isSuggestion_No_retry_Fwk_ncl77_acode_SRP_SU.span_text \
+                                    AttributeName:  'innerText' \
+                                    AttributeValue=> AttributeValue2
+
+
+Console.Write                       Message: AttributeValue1
+Console.Write                       Message: AttributeValue2
+
+wait 1
+
+
+WebAutomation.CloseWebBrowser       BrowserInstance: Browser
+
+###########################################
+
+
+    Text.ToNumber Text: AttributeValue1  Number=> TextAsNumber
+
+    set value to TextAsNumber
+    
+end
+
+
+call    gmarket_price   value=>value
+#Console.Write Message: 'Value1: '+ value
+
+set prices[0] to value
+#Console.Write Message: 'Value1: '+ prices[0]
+
+wait 2
+
+call    st_price    value=>value
+set prices[1] to value
+#Console.Write Message: 'Value1: '+ prices[1]
+
+wait 2
+
+
+call    auction_price   value=>value
+
+set prices[2] to value
+#Console.Write Message: 'Value1: '+ prices[2]
+
+wait 2
+
+
+Variables.SortList List: prices SortedList=> prices
+
+Console.Write Message: 'Min Value: '+ prices[0]
