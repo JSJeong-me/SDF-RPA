@@ -1,0 +1,126 @@
+#
+# Robin RPA 제 15 강
+#
+# 과일 가격 조회
+#  
+# Copyright 2020. Joon Soo Jeong. All rights Reserved.
+#
+
+# Step 1: Load AppMask
+
+import "appleApp.appmask"      # 
+
+
+
+# Variables
+set webURL to "https://www.kamis.or.kr/customer/archive/archive.do?action=detail&archiveNo=43"    # URL
+set fruits to '과일류'
+set apples to '사과'
+set price_info to '가격정보'
+
+set FilePath to 'C:\Users\heine\Desktop\data'
+set fullFilePath to FilePath+'\\'+$"%price_info%.xls"
+
+
+System.ShowDesktop DesktopOperation:System.DesktopOperation.Show #Desktop Clearance
+
+
+# 대상 웹페이지 Chrome Tab Create and Title
+WebAutomation.AttachToChromeByTitle TabTitle: "Fruits Prices" BrowserInstance=> BrowsertoClose
+    on error LaunchChromeError
+    set closingTarget to false
+    end
+
+
+# 1. 웹페이지 오픈
+WebAutomation.LaunchChrome WindowState:WebAutomation.BrowserWindowState.Maximized ClearCache:False \
+        ClearCookies:False Url: webURL BrowserInstance=> Browser
+
+wait 2
+
+
+# 4. 목적 데이터 조회 : 종합 데이터의 2019.01.15일 30분 데이터 가정
+WebAutomation.FormFilling.SetDropDownListValueByName BrowserInstance: Browser \
+        Control: appleApp.New_Application.Web_Page_https_www_kamis_or_kr_customer_archive_archive_do_action_detail_archiveNo_43.select_search_itemcategorycode \
+        OptionNames: fruits
+        
+WebAutomation.FormFilling.SetDropDownListValueByName BrowserInstance: Browser \
+        Control: appleApp.New_Application.Web_Page_https_www_kamis_or_kr_customer_archive_archive_do_action_detail_archiveNo_43.select_search_itemcode_2 \
+        OptionNames: apples
+
+WebAutomation.FormFilling.PressButton BrowserInstance: Browser \
+        Control: appleApp.New_Application.Web_Page_https_www_kamis_or_kr_customer_archive_archive_do_action_detail_archiveNo_43.a_btn_extra_darkgreen
+
+wait 2
+
+
+WebAutomation.FormFilling.PressButton BrowserInstance: Browser \
+        Control: appleApp.New_Application.Web_Page_https_www_kamis_or_kr_customer_archive_archive_do_loginYn_N_searchOption_S_itemCategoryCode_400_itemCode_411_searchString.img
+# 
+
+wait 2
+
+# Apple Price Info Click
+WebAutomation.FormFilling.PressButton BrowserInstance: Browser \
+        Control:  appleApp.New_Application.Web_Page_https_www_kamis_or_kr_customer_archive_archive_do_action_detail_archiveNo_43.li 
+
+wait 2
+
+# Down Load Click
+WebAutomation.FormFilling.PressButton BrowserInstance: Browser \
+        Control:  appleApp.New_Application.Web_Page_https_www_kamis_or_kr_customer_archive_archive_do_action_detail_archiveNo_43.a_common_btn1
+        
+wait 2
+
+#check whether the file exists.
+if (File.Exists File: fullFilePath) then
+    File.Delete Files: fullFilePath
+    Console.Write   Message: fullFilePath+' deleted.'
+end
+
+wait 2
+# Type File Name
+UIAutomation.FormFilling.PopulateTextField TextField: appleApp.New_Application.Pane_KAMIS_Chrome.Edit Text: fullFilePath
+
+wait 2
+
+# Press Save Button
+UIAutomation.FormFilling.PressButton Button: appleApp.New_Application.Pane_KAMIS_Chrome.Button_S
+
+
+wait 2
+
+### Excel File Convert
+Excel.LaunchAndOpen     Path:  fullFilePath\
+                        Visible:True \
+                        Password:'' \
+                        ReadOnly:False \
+                        LoadAddInsAndMacros:False \
+                        Instance=> ExcelInstance
+wait 2
+
+
+
+Excel.CloseAndSaveAs Instance: ExcelInstance  DocumentFormat: Excel.ExcelFormat.FromExtension \
+                        DocumentPath: fullFilePath
+wait 2
+
+
+Console.Write   Message: fullFilePath
+
+WebAutomation.CloseWebBrowser BrowserInstance: Browser
+
+###
+File.RenameAddDateOrTime Files:fullFilePath \
+    DateTimeToAdd:File.DateTimeToAdd.Current \
+    DateTimePosition:File.AddTextPosition.AfterName \
+    DateTimeSeparator:File.Separator.Underscore \
+    DateTimeFormat:'yyyyMMdd' \
+    IfFileExists:File.IfExists.DoNothing RenamedFiles=> RenamedFiles
+    
+Console.Write   Message: RenamedFiles
+    
+###
+
+System.ShowDesktop DesktopOperation:System.DesktopOperation.Hide #Desktop Clearance
+# end
