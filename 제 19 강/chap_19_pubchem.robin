@@ -1,0 +1,7 @@
+import 'pubApp.appmask'
+
+WebAutomation.LaunchChrome Url: 'https://pubchem.ncbi.nlm.nih.gov/'\
+  WindowState:WebAutomation.BrowserWindowState.Maximized ClearCache:False ClearCookies:False BrowserInstance=> Browser
+  
+WebAutomation.FormFilling.PopulateTextField BrowserInstance: Browser\
+ Control: pubApp.New_Application.Web_Page_https_pubchem_ncbi_nlm_nih_gov.input_text_search Text: '50-00-0'  EmulateTyping:False UnfocusAfterPopulate:False  
