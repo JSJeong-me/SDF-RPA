@@ -1,0 +1,27 @@
+#
+# Robin RPA 제 13 강
+#
+# Desktop 위의 윈도우 App 실행
+#  
+# Copyright 2020. Joon Soo Jeong. All rights Reserved.
+#
+
+
+import  'uiApp.appmask'
+
+UIAutomation.UseDesktop Control: uiApp.New_Application.Desktop_Icons.Andr_Rieu_134sec_wav \
+    ClickType:UIAutomation.DesktopClickType.DoubleClick LaunchNewApplication:True
+    
+wait 15
+
+UIAutomation.Click Element: uiApp.New_Application.Window_Groove.Button_1 \
+  ClickType:UIAutomation.ClickType.LeftClick \
+  MousePositionRelativeToElement:UIAutomation.RectangleEdgePoint.MiddleCenter OffsetX:0 OffsetY:0
+
+wait 2
+
+
+UIAutomation.Click Element: uiApp.New_Application.Window_Groove.Button_Groove \
+  ClickType:UIAutomation.ClickType.LeftClick \
+  MousePositionRelativeToElement:UIAutomation.RectangleEdgePoint.MiddleCenter OffsetX:0 OffsetY:0
+ 
