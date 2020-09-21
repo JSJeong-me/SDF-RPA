@@ -1,0 +1,132 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<HTML xmlns="http://www.w3.org/1999/xhtml" xml:lang="ko" lang="ko">
+<head>
+	<title>가격정보 - 친환경농산물 - 품목별 엑셀 출력</title>
+	<meta http-equiv="Content-Type" content="application/vnd.ms-excel;charset=utf-8">
+	<style type="text/css">
+		table caption	{ text-align:left; }
+		table th		{ background-color:#eff2f9; }
+		table td		{ mso-number-format:\@; text-align:general; vertical-align:middle; text-align:center; white-space:nowrap; mso-rotate:0; mso-background-source:auto; mso-pattern:auto; color:black; font-size:11.0pt; font-style:normal; text-decoration:none; font-family:"맑은 고딕", monospace; mso-font-charset:129; border:1px; mso-protection:locked visible; mso-style-name:표준; mso-style-id:0; }
+		table td.c		{ text-align:center;}
+		table td.l		{ text-align:left; }
+		table td.r		{ text-align:right; }
+	</style>
+</head>
+<body>
+	<table>
+		<tr>
+			<td	class="data">
+				<table id="data" border="1px">
+					
+				<caption></caption>
+				<colgroup><col><col><col><col><col><col><col><col><col><col><col><col><col><col><col>
+				</colgroup><tbody><tr>
+					<th class="first" scope="col">구분</th>
+					
+						<th scope="col">1월</th>
+					
+						<th scope="col">2월</th>
+					
+						<th scope="col">3월</th>
+					
+						<th scope="col">4월</th>
+					
+						<th scope="col">5월</th>
+					
+						<th scope="col">6월</th>
+					
+						<th scope="col">7월</th>
+					
+						<th scope="col">8월</th>
+					
+						<th scope="col">9월</th>
+					
+						<th scope="col">10월</th>
+					
+						<th scope="col">11월</th>
+					
+						<th scope="col">12월</th>
+					
+					<th class="last" scope="col">연평균</th>
+				</tr>
+
+				
+				<tr>
+					<td class="first cell_tit1">2017</td>
+					<td>40,890</td>
+					<td>40,200</td>
+					<td>38,755</td>
+					<td>38,430</td>
+					<td>38,842</td>
+					<td>38,762</td>
+					<td>41,895</td>
+					<td>40,536</td>
+					<td>-</td>
+					<td>-</td>
+					<td>33,609</td>
+					<td>33,705</td>
+					<td class="last">38,575</td>
+				</tr>
+				
+				<tr>
+					<td class="first cell_tit1">2018</td>
+					<td>36,436</td>
+					<td>41,611</td>
+					<td>42,067</td>
+					<td>40,771</td>
+					<td>38,350</td>
+					<td>38,989</td>
+					<td>37,855</td>
+					<td>36,873</td>
+					<td>38,720</td>
+					<td>36,550</td>
+					<td>38,282</td>
+					<td>41,505</td>
+					<td class="last">39,081</td>
+				</tr>
+				
+				<tr>
+					<td class="first cell_tit1">2019</td>
+					<td>44,400</td>
+					<td>38,741</td>
+					<td>38,940</td>
+					<td>38,400</td>
+					<td>40,733</td>
+					<td>42,147</td>
+					<td>40,991</td>
+					<td>34,762</td>
+					<td>34,246</td>
+					<td>33,500</td>
+					<td>34,257</td>
+					<td>37,530</td>
+					<td class="last">38,732</td>
+				</tr>
+				
+				<tr>
+					<td class="first cell_tit1">2020</td>
+					<td>38,815</td>
+					<td>36,335</td>
+					<td>37,820</td>
+					<td>40,420</td>
+					<td>55,979</td>
+					<td>61,462</td>
+					<td>68,068</td>
+					<td>71,972</td>
+					<td>-</td>
+					<td>-</td>
+					<td>-</td>
+					<td>-</td>
+					<td class="last">50,560</td>
+				</tr>
+				
+				
+			</tbody>
+				</table>
+			</td>
+		</tr>
+	</table>
+</body>
+</html>
