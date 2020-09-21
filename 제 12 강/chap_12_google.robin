@@ -1,0 +1,27 @@
+#
+# Robin RPA 제 12 강
+#
+# Goole 검색 - '{Enter}' 입력
+#  
+# Copyright 2020. Joon Soo Jeong. All rights Reserved.
+#
+
+
+import  'gApp.appmask'
+
+System.ShowDesktop DesktopOperation:System.DesktopOperation.Show
+
+WebAutomation.LaunchChrome Url: "https://www.google.com" \
+    WindowState:WebAutomation.BrowserWindowState.Normal \
+    ClearCache:False ClearCookies:False BrowserInstance=> Browser
+
+WebAutomation.FormFilling.PopulateTextField BrowserInstance: Browser \
+ Control: gApp.New_Application.Web_Page_https_www_google_com_webhp_hl_ko_sa_X_ved_0ahUKEwiJ9PL8kczrAhWHy4sBHa3CBzYQPAgI.input_text_gLFyf_gsfi \
+   Text: 'aaa' EmulateTyping:True UnfocusAfterPopulate:False
+
+MouseAndKeyboard.SendKeys TextToSend: '{Enter}' DelayBetweenKeystrokes:10
+
+wait 1
+WebAutomation.CloseWebBrowser BrowserInstance: Browser
+
+System.ShowDesktop DesktopOperation:System.DesktopOperation.Hide

@@ -1,0 +1,45 @@
+#
+# Robin RPA 제 12 강
+#
+# Key Shortcut (단축키) - Notepad.exe
+#  
+# Copyright 2020. Joon Soo Jeong. All rights Reserved.
+#
+
+System.ShowDesktop DesktopOperation:System.DesktopOperation.Show
+
+Display.InputDialog                     Title:'Writing to Word via the clipboard' \
+                                        Message:'Enter the text you want to be sent to Word' \
+                                        DefaultValue:'' \
+                                        InputType:Display.InputType.Multiline \
+                                        IsTopMost:False \
+                                        UserInput=> UserInput \
+                                        ButtonPressed=> ButtonPressed
+
+System.RunApplicationAndWaitToLoad      ApplicationPath:  'notepad.exe' \
+                                        CommandLineArguments:'' \
+                                        WorkingDirectory:'' \
+                                        WindowStyle:System.ProcessWindowStyle.Normal \
+                                        Timeout:0 ProcessId=> ProcessId \
+                                        WindowHandle=> WindowHandle
+
+
+Clipboard.SetText                       Text: UserInput
+
+wait 1
+
+
+MouseAndKeyboard.SendKeys               TextToSend:  '{Control}({V})'  \
+                                        DelayBetweenKeystrokes:100
+wait 2
+                                        
+MouseAndKeyboard.SendKeys               TextToSend:   '{Alt}({F}{X})'  \
+                                        DelayBetweenKeystrokes:100    
+wait 1
+                                        
+MouseAndKeyboard.SendKeys               TextToSend:   '{Alt}({N})' \
+                                        DelayBetweenKeystrokes:100                                                                                                                  
+                                        
+wait 1
+
+System.ShowDesktop DesktopOperation:System.DesktopOperation.Hide                                      
