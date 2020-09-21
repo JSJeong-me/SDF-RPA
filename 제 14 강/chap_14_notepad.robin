@@ -1,0 +1,133 @@
+#
+# Robin RPA 제 14 강
+#
+# Notepad 자동화
+#  
+# Copyright 2020. Joon Soo Jeong. All rights Reserved.
+#
+
+import                                  ".\uiNotepad1.appmask"
+                                        # Import appmask
+                                        
+System.ShowDesktop DesktopOperation:System.DesktopOperation.Show                                        
+                                        
+System.RunApplication                   ApplicationPath:  'C:\Windows\system32\notepad.exe' \
+                                        CommandLineArguments:'' \
+                                        WorkingDirectory:'' \
+                                        WindowStyle:System.ProcessWindowStyle.Normal \
+                                        ProcessId=> ProcessId
+                                        # Run application
+
+
+
+UiAutomation.Windows.GetForegroundWindow        WindowTitle=> WindowTitle \
+                                        WindowInstance=> NotepadInstance
+                                        # For safety's sake, get the foreground window
+UiAutomation.Windows.FocusByInstanceOrHandle \
+                                        WindowInstance: NotepadInstance
+                                        # This may duplicate what was done above
+#UiAutomation.FormFilling.PopulateTextField             TextField: 'This is a test of changing font type and style.'
+                                        # Focus the 'Edit' field
+MouseAndKeyboard.SendKeys TextToSend:      'This is a test of changing font type and style.' \
+                                        DelayBetweenKeystrokes:10 
+        #                                DelayBetweenKeystrokes:0
+                                        # Send a message to the viewer
+wait 2
+                                      # Wait before formatting
+MouseAndKeyboard.SendKeys               TextToSend:   '{Alt}{O}{F}' \
+                                        DelayBetweenKeystrokes:0
+                                        # Thanks @kzaverdinos!!!!
+                                        # Send hotkeys for formatting menu
+                                         
+
+
+                                      
+UIAutomation.FormFilling.FocusTextField             TextField: uiNotepad1.Notepad.Window_Windows_1.Edit_F
+                                        # Focus font type edit field
+UIAutomation.FormFilling.PopulateTextField          TextField: uiNotepad1.Notepad.Window_Windows_1.Edit_F \ 
+                                        Text: '맑은 고딕'
+                                      
+                                        # Select a horrid typeface :)
+UIAutomation.FormFilling.FocusTextField             TextField: uiNotepad1.Notepad.Window_Windows_1.Edit_Y
+                                        # Focuse the style edit field
+UIAutomation.FormFilling.PopulateTextField          TextField: uiNotepad1.Notepad.Window_Windows_1.Edit_Y \
+                                        Text: '굵게'
+                                     
+
+
+                                        # Make it italic
+UIAutomation.FormFilling.FocusTextField             TextField: uiNotepad1.Notepad.Window_Windows_1.Edit_S
+                                        # Focus the font size edit field
+UIAutomation.FormFilling.PopulateTextField          TextField: uiNotepad1.Notepad.Window_Windows_1.Edit_S \ 
+                                        Text: '48'
+                                       
+
+
+
+                                    # Make it huge
+UiAutomation.Click                      Element:  uiNotepad1.Notepad.Window_Windows_1.Button \
+                                        ClickType:UIAutomation.ClickType.LeftClick \
+                                        MousePositionRelativeToElement:UIAutomation.RectangleEdgePoint.MiddleCenter \
+                                        OffsetX:0 \
+                                        OffsetY:0
+                                        # Click OK
+set MyMessage to """I will now reset to my default settings, then exit."""
+
+
+
+Display.ShowMessageWithTimeout          Title:'Nota bene . . .' \
+                                        Message:MyMessage \
+                                        Icon:Display.Icon.Information \
+                                        Buttons:Display.Buttons.OK \
+                                        DefaultButton:Display.DefaultButton.Button1 \
+                                        IsTopMost:False \
+                                        Timeout:3 \
+                                        ButtonPressed=> ButtonPressed
+
+wait 1
+
+
+MouseAndKeyboard.SendKeys               TextToSend:   '{Alt}{O}{F}' \
+                                        DelayBetweenKeystrokes:0
+
+UIAutomation.FormFilling.FocusTextField             TextField: uiNotepad1.Notepad.Window_Windows_1.Edit_F
+                                        
+UIAutomation.FormFilling.PopulateTextField          TextField: uiNotepad1.Notepad.Window_Windows_1.Edit_F \ 
+                                        Text: 'Arial'
+                                        
+UIAutomation.FormFilling.FocusTextField             TextField: uiNotepad1.Notepad.Window_Windows_1.Edit_Y
+                                        
+UIAutomation.FormFilling.PopulateTextField          TextField: uiNotepad1.Notepad.Window_Windows_1.Edit_Y \ 
+                                        Text: '보통'
+                                        
+UIAutomation.FormFilling.FocusTextField             TextField: uiNotepad1.Notepad.Window_Windows_1.Edit_S
+                                        # Focus the font size edit field
+UIAutomation.FormFilling.PopulateTextField          TextField: uiNotepad1.Notepad.Window_Windows_1.Edit_S \ 
+                                        Text: '10'
+                                        
+UiAutomation.Click                      Element:  uiNotepad1.Notepad.Window_Windows_1.Button \
+                                        ClickType:UIAutomation.ClickType.LeftClick \
+                                        MousePositionRelativeToElement:UIAutomation.RectangleEdgePoint.MiddleCenter \
+                                        OffsetX:0 \
+                                        OffsetY:0
+
+UiAutomation.FormFilling.FocusTextField             TextField: uiNotepad1.Notepad.Window_Windows_1.Menu_Bar
+                                        # Focus the 'Edit' field
+MouseAndKeyboard.SendKeys               TextToSend:   '{Ctrl}{A}{Ctrl}{X}' \
+                                        DelayBetweenKeystrokes:0
+
+wait 2
+
+MouseAndKeyboard.SendKeys               TextToSend:   '{Alt}{F}{X}' \
+                                        DelayBetweenKeystrokes:10
+                                        
+wait 1
+
+UiAutomation.Click                      Element:  uiNotepad1.Notepad.Window_Windows_2.Button_N \
+                                        ClickType:UIAutomation.ClickType.LeftClick \
+                                        MousePositionRelativeToElement:UIAutomation.RectangleEdgePoint.MiddleCenter \
+                                        OffsetX:0 \
+                                        OffsetY:0 
+
+System.ShowDesktop DesktopOperation:System.DesktopOperation.Hide                               
+ 
